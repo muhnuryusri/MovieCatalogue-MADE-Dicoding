@@ -48,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
     private fun populateDetailMovieData(movieData: Movie) {
         binding.apply {
             tvTitle.text = movieData.title
-            tvRelease.text = movieData.release + "Test"
+            tvRelease.text = movieData.release
             tvScore.text = movieData.score.toString()
             tvOverview.text = movieData.overview
 

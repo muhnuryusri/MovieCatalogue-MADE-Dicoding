@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,14 +23,14 @@ class MovieFragment : Fragment() {
     private val movieViewModel: MovieViewModel by viewModels()
 
     private lateinit var adapter: MovieAdapter
-    private lateinit var binding: FragmentMovieBinding
+    private var binding: FragmentMovieBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentMovieBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class MovieFragment : Fragment() {
                     is Resource.Loading -> showLoading(true)
                     is Resource.Success -> {
                         showLoading(false)
-                        binding.rvMovie.adapter?.let { adapter ->
+                        binding?.rvMovie?.adapter?.let { adapter ->
                             when (adapter) {
                                 is MovieAdapter -> {
                                     listMovie.data?.let { adapter.setData(it) }
@@ -69,16 +70,23 @@ class MovieFragment : Fragment() {
     private fun showRecyclerList() {
         adapter = MovieAdapter()
 
-        binding.rvMovie.layoutManager = LinearLayoutManager(activity)
-        binding.rvMovie.adapter = adapter
+        binding?.rvMovie?.layoutManager = LinearLayoutManager(activity)
+        binding?.rvMovie?.adapter = adapter
     }
+
     private fun showLoading(state: Boolean) {
         if (state) {
-            binding.shimmerView.startShimmer()
-            binding.shimmerView.visibility = View.VISIBLE
+            binding?.shimmerView?.startShimmer()
+            binding?.shimmerView?.visibility = View.VISIBLE
         } else {
-            binding.shimmerView.stopShimmer()
-            binding.shimmerView.visibility = View.GONE
+            binding?.shimmerView?.stopShimmer()
+            binding?.shimmerView?.visibility = View.GONE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.rvMovie?.adapter = null
+        binding = null
     }
 }
