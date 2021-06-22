@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.moviecatalogue.core.ui.MovieAdapter
-import com.application.moviecatalogue.databinding.FragmentFavoriteMovieBinding
 import com.application.moviecatalogue.di.FavoritesDependencies
+import com.application.moviecatalogue.favorites.databinding.FragmentFavoriteMovieBinding
 import com.application.moviecatalogue.favorites.di.DaggerFavoritesComponent
 import com.application.moviecatalogue.favorites.favorite.FavoriteViewModel
 import com.application.moviecatalogue.favorites.utlis.ViewModelFactory
